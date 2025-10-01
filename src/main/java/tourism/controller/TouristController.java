@@ -33,6 +33,7 @@ import java.util.List;
 @RequestMapping("attractions")
 public class TouristController {
 
+
     private final TouristService service;
 
     public TouristController(TouristService service) {
