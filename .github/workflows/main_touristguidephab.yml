@@ -1,3 +1,4 @@
+
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
@@ -49,9 +50,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0EDC6095DE98488FAAD1DC124F2F1F61 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_09EA304AA7E94DDD9A03CB4CB0F8698D }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8173933CB578442E9508B88CA1E716B9 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_44C834E771524BACA6DAFC4156423165 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6B37D42488B144458CF86343FF034A53 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4C74A272CE3B43F786F4F7B150A1191D }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
