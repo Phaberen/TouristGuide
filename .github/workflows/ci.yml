@@ -113,12 +113,3 @@ jobs:
           results-dir: qodana
         continue-on-error: true
           # args: --use-caches # (valgfrit – du kan fjerne eller beholde)
-
-      - name: Upload full Qodana report (html + logs)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: qodana-report-full
-          path: ./qodana/**
-          if-no-files-found: error
-          retention-days: 7
