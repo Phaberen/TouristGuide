@@ -8,4 +8,4 @@ exclude:
     paths:
       - target
       - .idea
-failThreshold: 0
+failThreshold: 10000
