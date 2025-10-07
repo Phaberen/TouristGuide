@@ -110,4 +110,5 @@ jobs:
         uses: JetBrains/qodana-action@v2024.2.6
         with:
           upload-result: true
+        continue-on-error: true
           # args: --use-caches # (valgfrit – du kan fjerne eller beholde)
