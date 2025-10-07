@@ -4,6 +4,8 @@ import tourism.model.TouristAttraction;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Repository class for managing a list of tourist attractions.
@@ -40,6 +42,22 @@ public class TouristRepository {
     }
 
     /**
+     * Finds a tourist attraction by its exact name match.
+     *
+     * @param attractionName the name to look up
+     * @return the {@link TouristAttraction} if found, otherwise {@code null}
+     */
+    public TouristAttraction findByName(String attractionName) {
+        if (attractionName == null) return null;
+        for (TouristAttraction attraction : attractions) {
+            if (attractionName.equals(attraction.getName())) {
+                return attraction;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds a new tourist attraction to the list.
      *
      * @param touristAttraction the {@link TouristAttraction} to add.
@@ -63,6 +81,23 @@ public class TouristRepository {
     }
 
     /**
+     * Updates an existing tourist attraction by name.
+     *
+     * @param updatedAttraction the new data whose name identifies the target
+     * @return the previous attraction if replaced, otherwise {@code null}
+     */
+    public TouristAttraction updateOneNamedAttraction(TouristAttraction updatedAttraction) {
+        if (updatedAttraction == null || updatedAttraction.getName() == null) return null;
+        for (int i = 0; i < attractions.size(); i++) {
+            TouristAttraction existing = attractions.get(i);
+            if (updatedAttraction.getName().equals(existing.getName())) {
+                return attractions.set(i, updatedAttraction);
+            }
+        }
+        return null;
+    }
+
+    /**
      * Deletes a tourist attraction from the list by its name.
      *
      * @param attractionName the name of the attraction to remove.
@@ -71,5 +106,27 @@ public class TouristRepository {
     public boolean deleteOneNamedAttractionFromList(String attractionName) {
         return attractions.removeIf(namedAttractionToRemove ->
                 namedAttractionToRemove.getName().equals(attractionName));
+    }
+
+    /**
+     * Returns a distinct list of all tags across attractions.
+     */
+    public List<String> getDistinctTags() {
+        return attractions.stream()
+                .flatMap(a -> a.getTags() == null ? new ArrayList<String>().stream() : a.getTags().stream())
+                .filter(Objects::nonNull)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a distinct list of all cities across attractions.
+     */
+    public List<String> getDistinctCities() {
+        return attractions.stream()
+                .map(TouristAttraction::getCity)
+                .filter(Objects::nonNull)
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

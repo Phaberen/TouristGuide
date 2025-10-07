@@ -1,0 +1,11 @@
+version: 1.0
+linter: jetbrains/qodana-jvm:latest
+projectJDK: "21"
+profile:
+  name: "Recommended"
+exclude:
+  - name: All
+    paths:
+      - target
+      - .idea
+failThreshold: 0

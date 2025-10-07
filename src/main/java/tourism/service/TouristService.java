@@ -3,7 +3,6 @@ import org.springframework.stereotype.Service;
 import tourism.model.TouristAttraction;
 import tourism.repository.TouristRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,12 +42,7 @@ public class TouristService {
      * @return the matching {@link TouristAttraction}, or {@code null} if not found
      */
     public TouristAttraction getOneNamedAttraction(String attractionName) {
-        for (TouristAttraction attraction : repository.getAllAttractions()) {
-            if (attraction.getName().equals(attractionName)) {
-                return attraction;
-            }
-        }
-        return null;
+        return repository.findByName(attractionName);
     }
 
     /**
@@ -57,13 +51,7 @@ public class TouristService {
      * @return a list of tags from all attractions
      */
     public List<String> getTags() {
-        List<String> listOfTags = new ArrayList<>();
-        for (TouristAttraction attraction : repository.getAllAttractions()) {
-            if (attraction.getTags() != null) {   // avoid NPE
-                listOfTags.addAll(attraction.getTags());
-            }
-        }
-        return listOfTags.stream().distinct().toList();
+        return repository.getDistinctTags();
     }
 
     /**
@@ -72,11 +60,7 @@ public class TouristService {
      * @return a list of city names from all attractions
      */
     public List<String> getCities() {
-        List<String> listOfCities = new ArrayList<>();
-        for (TouristAttraction attraction : repository.getAllAttractions()) {
-            listOfCities.add(attraction.getCity());
-        }
-        return listOfCities.stream().distinct().toList();
+        return repository.getDistinctCities();
     }
 
     /**
@@ -96,14 +80,7 @@ public class TouristService {
      * @return the previous attraction that was replaced, or {@code null} if no match was found
      */
     public TouristAttraction updateAttraction(TouristAttraction updatedTouristAttraction) {
-        ArrayList<TouristAttraction> attractionsList = repository.getAllAttractions();
-        for (int i = 0; i < attractionsList.size(); i++) {
-            TouristAttraction oldAttraction = attractionsList.get(i);
-            if (oldAttraction.getName().equals(updatedTouristAttraction.getName())) {
-                return repository.updateOneNamedAttraction(i, updatedTouristAttraction);
-            }
-        }
-        return null;
+        return repository.updateOneNamedAttraction(updatedTouristAttraction);
     }
 
     /**
